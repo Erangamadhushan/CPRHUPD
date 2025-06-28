@@ -15,4 +15,6 @@
         // echo "Connected successfully";
         echo "<script>console.log('Connected to the database successfully');</script>";
     }
+
+    
 ?>
