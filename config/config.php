@@ -1,6 +1,6 @@
 <?php
     $servername = "localhost:3307";
-    $username = "";
+    $username = "root";
     $password = "";
     $dbname = "cprhupd";
 
@@ -15,4 +15,6 @@
         // echo "Connected successfully";
         echo "<script>console.log('Connected to the database successfully');</script>";
     }
+
+    
 ?>

@@ -72,7 +72,9 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm font-medium text-gray-600">Total Products</p>
-                        <p class="text-3xl font-bold text-gray-900 mt-1" id="totalProducts">1,234</p>
+                        <p class="text-3xl font-bold text-gray-900 mt-1" id="totalProducts">
+                            
+                        </p>
                         <p class="text-sm text-green-600 mt-1" id="productsChange">+12% from last month</p>
                     </div>
                     <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
