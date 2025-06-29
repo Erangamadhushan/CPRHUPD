@@ -27,6 +27,7 @@
                     <div class="flex items-center justify-center h-screen w-full">
                         <div class="bg-white p-8 w-[380px] mx-auto rounded-lg shadow-md">
                             <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
+                            <p class="text-center text-red-500 text-[18px]"><?php echo isset($_SESSION['error']) ? $_SESSION['error'] : ''; ?></p>
                             <div class="mb-4">
                                 <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
                                 <input type="text" id="username" name="username" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
