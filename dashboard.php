@@ -51,12 +51,12 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
                         </svg>
-                        <span class="text-sm">
+                        <span class="text-md">
                             <?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Guest'; ?>
                         </span>
                     </button>
                     <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                        <span class="text-white font-medium text-sm">A</span>
+                        <span class="text-white font-medium text-sm"><a href="./config/profile.php" class="font-medium">A</a></span>
                     </div>
                 </div>
             </div>
@@ -142,7 +142,7 @@
             <p class="text-gray-700">This dashboard provides real-time insights into your store's performance, including sales metrics, inventory levels, and customer data. Use the quick actions below to manage products, process sales, and view reports.</p>
             <?php
                 if (isset($_SESSION['username'])) {
-                    if( $_SESSION['role'] === 'cashier' ) {
+                    if( $_SESSION['role'] === 'staff' ) {
                         echo '
                             <div class="metric-card rounded-xl p-6 mt-5 shadow-sm border card-hover transition-all duration-300">
                                 <div class="flex items-center justify-between">

@@ -22,11 +22,13 @@
         if(!empty($username) && !empty($password) && !empty($email) && !empty($confirm_password) && !empty($phone) && !empty($role)) {
             if(!preg_match("/^[a-zA-Z0-9_]{3,20}$/", $username) === 0) {
                 echo "<script>alert('Username must be alphanumeric and between 3 to 20 characters long!');</script>";
+                $_SESSION['error'] = "Username must be alphanumeric and between 3 to 20 characters long!";
                 header("Location: ../register.php");
                 exit();
             }
             if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 echo "<script>alert('Invalid email format!');</script>";
+                $_SESSION['error'] = "Invalid email format!";
                 header("Location: ../register.php");
                 exit();
             }
@@ -111,6 +113,7 @@
                     $result = mysqli_query($conn, $check_sql);
                     if(mysqli_num_rows($result) > 0) {
                         echo "<script>alert('Username already exists!');</script>";
+                        $_SESSION['error'] = "Username already exists!";
                         header("Location: ../register.php");
                         exit();
                     }
@@ -120,6 +123,7 @@
                     $email_result = mysqli_query($conn, $check_email_sql);
                     if(mysqli_num_rows($email_result) > 0) {
                         echo "<script>alert('Email already exists!');</script>";
+                        $_SESSION['error'] = "Email already exists!";
                         header("Location: ../register.php");
                         exit();
                     }
@@ -130,7 +134,7 @@
                         echo "<script>console.log('Registration successful!');</script>";
                         $_SESSION['username'] = $username;
                         $_SESSION['role'] = $role;
-                        header("Location: index.php");
+                        header("Location: ../index.php");
                         exit();
                     } else {
                         echo "<script>alert('Error: " . mysqli_error($conn) . "');</script>";
@@ -139,7 +143,7 @@
                     }
                 }
 
-                if($role == 'Customer') {
+                if($role == 'customer') {
                     // Check if the username already exists
                     $check_sql = "SELECT * FROM customers WHERE username='$username'";
                     $result = mysqli_query($conn, $check_sql);
@@ -176,9 +180,15 @@
 
             } else {
                 echo "<script>alert('Passwords do not match!');</script>";
+                $_SESSION['error'] = "Passwords do not match!";
+                header("Location: ../register.php");
+                exit();
             }
         } else {
             echo "<script>alert('All fields are required!');</script>";
+            $_SESSION['error'] = "All fields are required!";
+            header("Location: ../register.php");
+            exit();
         }
     }
 ?>
