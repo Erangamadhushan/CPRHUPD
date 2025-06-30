@@ -22,7 +22,7 @@
             $role = sanitize_input($role);
             echo "<script>console.log('Sanitized Username: $username, Role: $role');</script>";
 
-            if($role == 'admin') {
+            if($role == 'admins') {
                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                $sql = "SELECT * FROM admins WHERE username='$username'";
                $result = mysqli_query($conn, $sql);
@@ -30,7 +30,7 @@
                while($row = mysqli_fetch_assoc($result)) {
                     if(password_verify($password, $row['password'])) {
                         $_SESSION['username'] = $row['username'];
-                        $_SESSION['role'] = 'admin';
+                        $_SESSION['role'] = 'admins';
                         echo "<script>alert('Login successful!');</script>";
                         header("Location: ../dashboard.php");
                         exit();
@@ -63,7 +63,7 @@
                 }
             }
 
-            if($role == 'staff') {
+            if($role == 'staffs') {
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                 $sql = "SELECT * FROM staffs WHERE username='$username'";
                 $result = mysqli_query($conn, $sql);
@@ -71,7 +71,7 @@
                 while($row = mysqli_fetch_assoc($result)) {
                     if(password_verify($password, $row['password'])) {
                         $_SESSION['username'] = $row['username'];
-                        $_SESSION['role'] = 'staff';
+                        $_SESSION['role'] = 'staffs';
                         echo "<script>alert('Login successful!');</script>";
                         header("Location: ../dashboard.php");
                         exit();
@@ -83,7 +83,7 @@
                     }
                 }
             }
-            if($role == 'customer') {
+            if($role == 'customers') {
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                 $sql = "SELECT * FROM customers WHERE username='$username'";
                 $result = mysqli_query($conn, $sql);
@@ -91,7 +91,7 @@
                 while($row = mysqli_fetch_assoc($result)) {
                     if(password_verify($password, $row['password'])) {
                         $_SESSION['username'] = $row['username'];
-                        $_SESSION['role'] = 'customer';
+                        $_SESSION['role'] = 'customers';
                         echo "<script>alert('Login successful!');</script>";
                         header("Location: ../dashboard.php");
                         exit();
