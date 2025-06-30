@@ -1,5 +1,12 @@
 <?php
-    session_start();
+    if(session_status() == PHP_SESSION_NONE) {
+        // Start the session if not already started
+        session_start();
+    }
+    // Include the authentication file
+    include 'authentication.php';
+
+    // Include the database connection file
     include 'config.php';
     
 ?>

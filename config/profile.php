@@ -20,7 +20,7 @@
 
     
     // Check User Role
-    include '../profileAuth.php';
+    include './auth/profileAuth.php';
 
     // Include the profile view file
 ?>

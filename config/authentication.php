@@ -7,7 +7,7 @@
 
     if (!isset($_SESSION['username']) || !isset($_SESSION['role'])) {
         $_SESSION['error'] = "You must be logged in to access this page.";
-        header("Location: ./index.php");
+        header("Location: ../index.php");
         exit();
     }
 ?>
