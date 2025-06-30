@@ -1,5 +1,11 @@
 <?php
-    session_start();
+    if(session_status() == PHP_SESSION_NONE) {
+        // Start the session if not already started
+        session_start();
+    }
+    
+
+    // Include the database connection file
     include 'config.php';
     
 ?>
@@ -37,7 +43,7 @@
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
                 
-                if($role == 'admin') {
+                if($role == 'admins') {
                     // Check if the username already exists
                     $check_sql = "SELECT * FROM admins WHERE username='$username'";
                     $result = mysqli_query($conn, $check_sql);
@@ -107,7 +113,7 @@
                     }
                 }
 
-                if($role == 'staff') {
+                if($role == 'staffs') {
                     // Check if the username already exists
                     $check_sql = "SELECT * FROM staffs WHERE username='$username'";
                     $result = mysqli_query($conn, $check_sql);
@@ -143,7 +149,7 @@
                     }
                 }
 
-                if($role == 'customer') {
+                if($role == 'customers') {
                     // Check if the username already exists
                     $check_sql = "SELECT * FROM customers WHERE username='$username'";
                     $result = mysqli_query($conn, $check_sql);
@@ -169,7 +175,7 @@
                         echo "<script>console.log('Registration successful!');</script>";
                         $_SESSION['username'] = $username;
                         $_SESSION['role'] = $role;
-                        header("Location: index.php");
+                        header("Location: ../index.php");
                         exit();
                     } else {
                         echo "<script>alert('Error: " . mysqli_error($conn) . "');</script>";
