@@ -185,8 +185,17 @@
                 <!-- Quick Actions -->
                 <div class="mb-8">
                     <h2 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
+                    <p class="text-md font-bold text-red-500 mb-4" id="errorMessage">
+                        <?php
+                            if (isset($_SESSION['new_product_insert_error'])) {
+                                echo htmlspecialchars($_SESSION['new_product_insert_error']);
+                                unset($_SESSION['new_product_insert_error']);
+                            }
+                        ?>
+                    </p>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <button class="action-card rounded-xl p-6 text-left card-hover transition-all duration-300" onclick="showModal('addProductModal')">
+                            
                             <div class="flex items-center space-x-3">
                                 <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
                                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -197,7 +206,7 @@
                             </div>
                         </button>
 
-                        <button class="action-card rounded-xl p-6 text-left card-hover transition-all duration-300" onclick="showModal('processSaleModal')">
+                        <a class="action-card rounded-xl p-6 text-left card-hover transition-all duration-300" href="Order.php">
                             <div class="flex items-center space-x-3">
                                 <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
                                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -206,7 +215,7 @@
                                 </div>
                                 <span class="font-medium text-gray-900">Process Sale</span>
                             </div>
-                        </button>
+                        </a>
 
                         <button class="action-card rounded-xl p-6 text-left card-hover transition-all duration-300" onclick="showModal('manageInventoryModal')">
                             <div class="flex items-center space-x-3">
@@ -319,7 +328,10 @@
             <!-- Add Product Modal -->
             <div id="addProductModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
                 <div class="bg-white rounded-xl shadow-xl max-w-md w-full mx-4 p-6">
+                    
                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Add New Product</h3>
+                    <p class="text-sm text-gray-600 mb-4">Fill in the details below to add a new product to the inventory.</p>
+                    
                     <form id="addProductForm" action="./config/components/addNewItem.php" method="post">
                         <div class="space-y-4">
                             <div>
@@ -403,5 +415,6 @@
             </div>
 
             <script src="./scripts/main.js"> </script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         </body>
 </html>

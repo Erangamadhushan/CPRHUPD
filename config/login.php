@@ -120,7 +120,7 @@
                         $_SESSION['username'] = $row['username'];
                         $_SESSION['role'] = 'customers';
                         echo "<script>alert('Login successful!');</script>";
-                        header("Location: ../dashboard.php");
+                        header("Location: ../Order.php");
                         exit();
                     } else {
                         echo "<script>alert('Invalid username or password!');</script>";

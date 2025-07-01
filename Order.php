@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include_once 'config/authentication.php';
+    //include_once 'config/authentication.php';
 ?>
 
 <!DOCTYPE html>
@@ -32,11 +32,15 @@
                     <div class="w-8 h-8 bg-green-500 rounded flex items-center justify-center">
                         <i class="fas fa-cash-register text-white text-sm"></i>
                     </div>
-                    <h1 class="text-xl font-semibold text-gray-800">Point of Sale</h1>
+                    <h1 class="text-xl font-semibold text-gray-800">FreshMart Management</h1>
                 </div>
                 <div class="flex items-center space-x-4 text-sm text-gray-600">
-                    <span>Cashier: <strong>Admin</strong></span>
-                    <span>Terminal: <strong>001</strong></span>
+                    <span><strong>
+                        <?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Guest'; ?>
+                    </strong></span>
+                    <span>role: <strong>
+                        <?php echo isset($_SESSION['role']) ? htmlspecialchars($_SESSION['role']) : 'Customer'; ?>
+                    </strong></span>
                 </div>
             </div>
         </header>

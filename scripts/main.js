@@ -18,11 +18,7 @@ document.getElementById('modalBackdrop').addEventListener('click', function() {
     this.classList.add('hidden');
 });
 
-// Form submissions
-document.getElementById('addProductForm').addEventListener('submit', function(e) {
-    hideModal('addProductModal');
-    this.reset();
-});
+
 
 document.getElementById('processSaleForm').addEventListener('submit', function(e) {
     e.preventDefault();
