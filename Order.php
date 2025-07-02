@@ -60,6 +60,7 @@
                         <input 
                             type="text" 
                             id="searchInput"
+                            onchange="searchProducts()"
                             placeholder="Search products or scan barcode..." 
                             class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus: outline-none focus:border-transparent"
                         >
@@ -68,7 +69,7 @@
                 </div>
 
                 <!-- Products Grid -->
-                <div id="" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div id="product_grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <!-- Products will be populated here -->
                      <?php
                         // Fetch products from the database
@@ -103,18 +104,7 @@
                             echo "<p class='text-gray-500'>No products found.</p>";
                         }
                      ?>
-                     <!-- <div class="product-card bg-white rounded-lg shadow-sm border hover:shadow-md cursor-pointer" onclick="addToCart(${product.id})">
-                        <div class="p-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <h4 class="font-medium text-gray-900">${product.name}</h4>
-                                <span class="text-xs px-2 py-1 rounded-full ${categoryColors[product.category] || 'bg-gray-100 text-gray-800'}">${product.category}</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-lg font-bold text-green-600">$${product.price.toFixed(2)}</span>
-                                <span class="text-sm text-gray-500">${product.stock} in stock</span>
-                            </div>
-                        </div>
-                    </div> -->
+                     
                 </div>
             </div>
 
@@ -139,36 +129,48 @@
 
                 <!-- Cart Summary -->
                 <div class="border-t p-6 space-y-4">
-                    <div class="space-y-2">
-                        <div class="flex justify-between text-sm">
-                            <span>Subtotal:</span>
-                            <span id="subtotal">$0.00</span>
+                    <form action="./transactions/cartAction.php" method="post">
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span>Subtotal:</span>
+                                <span id="subtotal" name="subTotal">$0.00</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span>Tax (8%):</span>
+                                <span id="tax" name="tax">$0.00</span>
+                            </div>
+                            <div class="flex justify-between text-lg font-bold border-t pt-2">
+                                <span>Total:</span>
+                                <span id="total" class="text-green-600" name="total">$0.00</span>
+                            </div>
                         </div>
-                        <div class="flex justify-between text-sm">
-                            <span>Tax (8%):</span>
-                            <span id="tax">$0.00</span>
-                        </div>
-                        <div class="flex justify-between text-lg font-bold border-t pt-2">
-                            <span>Total:</span>
-                            <span id="total" class="text-green-600">$0.00</span>
-                        </div>
-                    </div>
 
-                    <div class="space-y-3">
-                        <input 
-                            type="text" 
-                            id="customerName"
-                            placeholder="Enter customer name" 
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm"
-                        >
-                        <button 
-                            id="processPayment"
-                            class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-medium transition-colors flex items-center justify-center"
-                        >
-                            <i class="fas fa-credit-card mr-2"></i>
-                            Process Payment
-                        </button>
-                    </div>
+                        <div class="space-y-3">
+                            <input 
+                                type="text" 
+                                id="customerName"
+                                name="customerName"
+                                placeholder="Enter customer name" 
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm" disabled="true"
+                            >
+                            <select name="paymentMethod" id="paymentMethod" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm " disabled="true" required>
+                                <option value="" disabled selected>Select Payment Method</option>
+                                <option value="cash">Cash</option>
+                                <option value="credit_card">Credit Card</option>
+                                <option value="debit_card">Debit Card</option>
+                                <option value="mobile_payment">Mobile Payment</option>
+                                <option value="bank_transfer">Bank Transfer</option>
+                            </select>
+                            <button 
+                                type="submit"
+                                id="processPayment"
+                                class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-medium transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed" disabled="true" 
+                            >
+                                <i class="fas fa-credit-card mr-2"></i>
+                                Process Payment
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

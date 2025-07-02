@@ -346,6 +346,12 @@
                                     <option value="bakery">Bakery</option>
                                     <option value="fruits">Fruits</option>
                                     <option value="vegetables">Vegetables</option>
+                                    <option value="beverages">Beverages</option>
+                                    <option value="cereals">Cereals</option>
+                                    <option value="snacks">Snacks</option>
+                                    <option value="meat">Meat</option>
+                                    <option value="seafood">Seafood</option>
+                                    <option value="pantry">Pantry</option>
                                 </select>
                             </div>
                             <div>
