@@ -61,7 +61,7 @@
                             type="text" 
                             id="searchInput"
                             placeholder="Search products or scan barcode..." 
-                            class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                            class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus: outline-none focus:border-transparent"
                         >
                         <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                     </div>
@@ -86,7 +86,7 @@
                                     'Household' => 'bg-gray-100 text-gray-800'
                                 ];
                                 echo "
-                                <div class='product-card bg-white rounded-lg shadow-sm border hover:shadow-md cursor-pointer' onclick='addToCart({$product['id']})'>
+                                <div class='product-card bg-white rounded-lg shadow-sm border hover:shadow-md cursor-pointer' onclick=\"addToCart('{$product['id']}', '{$product['name']}', '{$product['price']}')\">
                                     <div class='p-4'>
                                         <div class='flex justify-between items-start mb-2'>
                                             <h4 class='font-medium text-gray-900'>{$product['name']}</h4>
@@ -173,7 +173,7 @@
             </div>
         </div>
 
-        <script type="module" src="scripts/main.js"></script>
+        <!-- <script type="module" src="scripts/main.js"></script> -->
         <script src="./scripts/orderFunctionality.js"> </script>
     </body>
 </html>

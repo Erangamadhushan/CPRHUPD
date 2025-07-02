@@ -10,13 +10,13 @@ function hideModal(modalId) {
 }
 
 // Close modal when clicking backdrop
-document.getElementById('modalBackdrop').addEventListener('click', function() {
-    const modals = ['addProductModal', 'processSaleModal', 'manageInventoryModal', 'viewReportsModal'];
-    modals.forEach(modalId => {
-        document.getElementById(modalId).classList.add('hidden');
-    });
-    this.classList.add('hidden');
-});
+// document.getElementById('modalBackdrop').addEventListener('click', function() {
+//     const modals = ['addProductModal', 'processSaleModal', 'manageInventoryModal', 'viewReportsModal'];
+//     modals.forEach(modalId => {
+//         document.getElementById(modalId).classList.add('hidden');
+//     });
+//     this.classList.add('hidden');
+// });
 
 
 

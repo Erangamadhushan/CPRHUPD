@@ -1,14 +1,14 @@
 // Sample product data
-const products = [
-    { id: 1, name: "Fresh Milk (1L)", category: "Dairy", price: 3.99, stock: 45 },
-    { id: 2, name: "Whole Wheat Bread", category: "Bakery", price: 2.49, stock: 8 },
-    { id: 3, name: "Organic Bananas (1kg)", category: "Fruits", price: 4.99, stock: 67 },
-    { id: 4, name: "Free Range Eggs (12pc)", category: "Dairy", price: 5.99, stock: 23 },
-    { id: 5, name: "Olive Oil (500ml)", category: "Pantry", price: 8.99, stock: 34 },
-    { id: 6, name: "Tomatoes (1kg)", category: "Vegetables", price: 3.49, stock: 45 },
-    { id: 7, name: "Chicken Breast (1kg)", category: "Meat", price: 12.99, stock: 15 },
-    { id: 8, name: "Greek Yogurt (500g)", category: "Dairy", price: 4.49, stock: 28 }
-];
+// const products = [
+//     { id: 1, name: "Fresh Milk (1L)", category: "Dairy", price: 3.99, stock: 45 },
+//     { id: 2, name: "Whole Wheat Bread", category: "Bakery", price: 2.49, stock: 8 },
+//     { id: 3, name: "Organic Bananas (1kg)", category: "Fruits", price: 4.99, stock: 67 },
+//     { id: 4, name: "Free Range Eggs (12pc)", category: "Dairy", price: 5.99, stock: 23 },
+//     { id: 5, name: "Olive Oil (500ml)", category: "Pantry", price: 8.99, stock: 34 },
+//     { id: 6, name: "Tomatoes (1kg)", category: "Vegetables", price: 3.49, stock: 45 },
+//     { id: 7, name: "Chicken Breast (1kg)", category: "Meat", price: 12.99, stock: 15 },
+//     { id: 8, name: "Greek Yogurt (500g)", category: "Dairy", price: 4.49, stock: 28 }
+// ];
 
 let cart = [];
 let filteredProducts = [...products];
@@ -53,38 +53,21 @@ function renderProducts() {
 }
 
 // Add to cart
-function addToCart(productId) {
-    const product = products.find(p => p.id === productId);
-    const existingItem = cart.find(item => item.id === productId);
-    
-    if (existingItem) {
-        existingItem.quantity += 1;
+function addToCart(productId, productName, productPrice) {
+
+    const product = cart.find(p => p.id === parseInt(productId));
+    if (product) {
+        product.quantity += 1;
     } else {
-        cart.push({ ...product, quantity: 1 });
+        // add product into the cart
+        quantity = 1;
+        productId = parseInt(productId);
+        productPrice = parseFloat(productPrice);
+        cart.push({productId, productName, productPrice, quantity})
     }
-    
+
     updateCart();
 }
-
-// Remove from cart
-function removeFromCart(productId) {
-    cart = cart.filter(item => item.id !== productId);
-    updateCart();
-}
-
-// Update quantity
-function updateQuantity(productId, change) {
-    const item = cart.find(item => item.id === productId);
-    if (item) {
-        item.quantity += change;
-        if (item.quantity <= 0) {
-            removeFromCart(productId);
-        } else {
-            updateCart();
-        }
-    }
-}
-
 // Update cart display
 function updateCart() {
     cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -92,25 +75,17 @@ function updateCart() {
     cartItems.innerHTML = cart.map(item => `
         <div class="cart-item bg-gray-50 rounded-lg p-3">
             <div class="flex justify-between items-start mb-2">
-                <h5 class="font-medium text-sm text-gray-900">${item.name}</h5>
-                <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700 text-sm">
+                <h5 class="font-medium text-sm text-gray-900">${item.productName}</h5>
+                <button onclick="removeFromCart(${item.productId})" class="text-red-500 hover:text-red-700 text-sm">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
             <div class="flex justify-between items-center">
-                <span class="text-sm text-gray-600">$${item.price.toFixed(2)} each</span>
-                <span class="font-bold">$${(item.price * item.quantity).toFixed(2)}</span>
-            </div>
-            <div class="flex items-center justify-between mt-2">
-                <div class="flex items-center space-x-2">
-                    <button onclick="updateQuantity(${item.id}, -1)" class="w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center">
-                        <i class="fas fa-minus text-xs"></i>
-                    </button>
-                    <span class="w-8 text-center font-medium">${item.quantity}</span>
-                    <button onclick="updateQuantity(${item.id}, 1)" class="w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center">
-                        <i class="fas fa-plus text-xs"></i>
-                    </button>
-                </div>
+                <span class="text-lg font-bold text-green-600">$${item.productPrice.toFixed(2)}</span>
+                <span class="text-sm text-gray-500">Qty: ${item.quantity}</span>
+                <span class="text-sm text-gray-500">Total: $${(item.productPrice * item.quantity).toFixed(2)}</span>
+                <button onclick="updateQuantity(${item.productId}, 1)" class="text-blue-500 hover:text-blue-700 text-sm"> +</button>
+                <button onclick="updateQuantity(${item.productId}, -1)" class="text-blue-500 hover:text-blue-700 text-sm"> -</button>
             </div>
         </div>
     `).join('');
@@ -118,15 +93,8 @@ function updateCart() {
     updateTotals();
 }
 
-// Update totals
-function updateTotals() {
-    const subtotalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const taxAmount = subtotalAmount * 0.08;
-    const totalAmount = subtotalAmount + taxAmount;
+function updateQuantity(productId, change) {
 
-    subtotal.textContent = `$${subtotalAmount.toFixed(2)}`;
-    tax.textContent = `$${taxAmount.toFixed(2)}`;
-    total.textContent = `$${totalAmount.toFixed(2)}`;
 }
 
 // Search functionality
