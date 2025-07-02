@@ -28,7 +28,7 @@
             $_SESSION['message'] = "Customer registered successfully!";
             echo "
                 <div class='flex h-screen items-center justify-center p-4 flex-column space-x-4'>
-                    <form action='./components/newCustomer.php' class='w-[95%] mx-auto ' method='post'>
+                    <form action='./components/newCustomer.php' class='w-[95%] mx-auto' method='post'>
                         <div class='flex items-center justify-end flex-col p-4 space-x-4 border mx-auto max-w-[600px] border-green-400'>
                             <h1 class='text-xl md:text-3xl text-green-400 font-bold'>FreshMart</h1>
                             <p class='text-md text-gray-500'>Welcome to FreshMart! Please register or assign a customer to start shopping.</p>
@@ -57,8 +57,8 @@
             // Handle customer assignment logic here
             // For example, you can assign an existing customer to the order
             $_SESSION['message'] = "Customer assigned successfully!";
-            // header("Location: ../Order.php");
-            // exit();
+            header("Location: ../Order.php");
+            exit();
         }
     ?>
     

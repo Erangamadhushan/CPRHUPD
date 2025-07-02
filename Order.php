@@ -52,7 +52,7 @@
             </div>
         </header>
 
-        <div class="flex items-center justify-end p-4 space-x-4">
+        <div class="flex items-center justify-end space-x-4">
             <?php
                 // If check user is registered user
                 if(!isset($_SESSION['currentCustomer'])) {
@@ -81,7 +81,7 @@
             ?>
         </div>
 
-        <div class="flex h-screen pt-16">
+        <div class="flex h-screen pt-5">
             <div class="flex-1 p-6 overflow-y-auto">
                 <div class="mb-6">
                     <h2 class="text-2xl font-bold text-gray-800 mb-4">Product Search</h2>
@@ -180,8 +180,9 @@
                                 id="customerName"
                                 name="customerName"
                                 placeholder="Enter customer name" 
+                                value="<?php echo isset($_SESSION['currentCustomer']) ? htmlspecialchars($_SESSION['currentCustomer']['name']) : ''; ?>"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm" disabled="true" required
-                            >
+                            />
                             <select name="paymentMethod" id="paymentMethod" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm " disabled="true" required>
                                 <option value="" disabled selected>Select Payment Method</option>
                                 <option value="cash">Cash</option>
@@ -193,6 +194,7 @@
                             <button 
                                 type="submit"
                                 id="processPayment"
+                                name="processPayment"
                                 class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-medium transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed" disabled="true" 
                             >
                                 <i class="fas fa-credit-card mr-2"></i>
