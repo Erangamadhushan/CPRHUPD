@@ -163,14 +163,17 @@
                             <div class="flex justify-between text-sm">
                                 <span>Subtotal:</span>
                                 <span id="subtotal" name="subTotal">$0.00</span>
+                                <input type="hidden" id="subTotal_amount" name="subTotal" value="0.00">
                             </div>
                             <div class="flex justify-between text-sm">
                                 <span>Tax (8%):</span>
                                 <span id="tax" name="tax">$0.00</span>
+                                <input type="hidden" id="tax_amount" name="tax" value="0.00">
                             </div>
                             <div class="flex justify-between text-lg font-bold border-t pt-2">
                                 <span>Total:</span>
                                 <span id="total" class="text-green-600" name="total">$0.00</span>
+                                <input type="hidden" id="total_amount" name="total" value="0.00">
                             </div>
                         </div>
 

@@ -24,6 +24,10 @@ const searchInput = document.getElementById('searchInput');
 const clearCart = document.getElementById('clearCart');
 const processPayment = document.getElementById('processPayment');
 
+const subtotal_amount = document.getElementById('subTotal_amount');
+const tax_amount = document.getElementById('tax_amount');
+const total_amount = document.getElementById('total_amount');
+
 // Category colors
 const categoryColors = {
     'Dairy': 'bg-blue-100 text-blue-800',
@@ -93,6 +97,9 @@ function updateTotals() {
     subtotal.textContent = `$${subtotalAmount.toFixed(2)}`;
     tax.textContent = `$${taxAmount.toFixed(2)}`;
     total.textContent = `$${totalAmount.toFixed(2)}`;
+    subtotal_amount.value = subtotalAmount.toFixed(2);
+    tax_amount.value = taxAmount.toFixed(2);
+    total_amount.value = totalAmount.toFixed(2);
 }
 
 function updateQuantity(productId, change) {
