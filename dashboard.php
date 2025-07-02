@@ -127,7 +127,14 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-sm font-medium text-gray-600">Customers</p>
-                                <p class="text-3xl font-bold text-gray-900 mt-1" id="totalCustomers">456</p>
+                                <p class="text-3xl font-bold text-gray-900 mt-1" id="totalCustomers">
+                                    <?php
+                                        // Fetch total customers from the database
+                                        $result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM registercustomers");
+                                        $row = mysqli_fetch_assoc($result);
+                                        echo htmlspecialchars($row['total']);
+                                    ?>
+                                </p>
                                 <p class="text-sm text-green-600 mt-1" id="customersChange">+23% from last month</p>
                             </div>
                             <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
@@ -143,7 +150,14 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-sm font-medium text-gray-600">Low Stock Items</p>
-                                <p class="text-3xl font-bold text-gray-900 mt-1" id="lowStockCount">23</p>
+                                <p class="text-3xl font-bold text-gray-900 mt-1" id="lowStockCount">
+                                    <?php
+                                        // Fetch low stock items from the database
+                                        $result = mysqli_query($conn, "SELECT COUNT(stock_quantity) AS total FROM products WHERE stock_quantity < 50");
+                                        $row = mysqli_fetch_assoc($result);
+                                        echo htmlspecialchars($row['total']);
+                                    ?>
+                                </p>
                                 <p class="text-sm text-red-600 mt-1" id="lowStockChange">-5% from last month</p>
                             </div>
                             <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
@@ -206,50 +220,56 @@
                         ?>
                     </p>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <button class="action-card rounded-xl p-6 text-left card-hover transition-all duration-300" onclick="showModal('addProductModal')">
-                            
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                    </svg>
-                                </div>
-                                <span class="font-medium text-gray-900">Add New Product</span>
-                            </div>
-                        </button>
+                        
+                        <?php
+                            if($_SESSION['role'] === 'admins') {
+                                echo '
+                                    <button class="action-card rounded-xl p-6 text-left card-hover transition-all duration-300" onclick="showModal(\'addProductModal\')">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
+                                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                                </svg>
+                                            </div>
+                                            <span class="font-medium text-gray-900">Add New Product</span>
+                                        </div>
+                                    </button>
 
-                        <a class="action-card rounded-xl p-6 text-left card-hover transition-all duration-300" href="Order.php">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m0 0h8m-8 0a2 2 0 100 4 2 2 0 000-4zm8 0a2 2 0 100 4 2 2 0 000-4z"></path>
-                                    </svg>
-                                </div>
-                                <span class="font-medium text-gray-900">Process Sale</span>
-                            </div>
-                        </a>
+                                    <a class="action-card rounded-xl p-6 text-left card-hover transition-all duration-300" href="Order.php">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
+                                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m0 0h8m-8 0a2 2 0 100 4 2 2 0 000-4zm8 0a2 2 0 100 4 2 2 0 000-4z"></path>
+                                                </svg>
+                                            </div>
+                                            <span class="font-medium text-gray-900">Process Sale</span>
+                                        </div>
+                                    </a>
 
-                        <button class="action-card rounded-xl p-6 text-left card-hover transition-all duration-300" onclick="showModal('manageInventoryModal')">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path>
-                                    </svg>
-                                </div>
-                                <span class="font-medium text-gray-900">Manage Inventory</span>
-                            </div>
-                        </button>
+                                    <button class="action-card rounded-xl p-6 text-left card-hover transition-all duration-300" onclick="showModal(\'manageInventoryModal\')">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
+                                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path>
+                                                </svg>
+                                            </div>
+                                            <span class="font-medium text-gray-900">Manage Inventory</span>
+                                        </div>
+                                    </button>
 
-                        <button class="action-card rounded-xl p-6 text-left card-hover transition-all duration-300" onclick="showModal('viewReportsModal')">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                                    </svg>
-                                </div>
-                                <span class="font-medium text-gray-900">View Reports</span>
-                            </div>
-                        </button>
+                                    <button class="action-card rounded-xl p-6 text-left card-hover transition-all duration-300" onclick="showModal(\'viewReportsModal\')">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
+                                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                                </svg>
+                                            </div>
+                                            <span class="font-medium text-gray-900">View Reports</span>
+                                        </div>
+                                    </button>
+                                ';
+                            }
+                        ?>
                     </div>
                 </div>
 
@@ -262,27 +282,34 @@
                             <span class="text-sm text-gray-500">Latest transactions from today</span>
                         </div>
                         <div class="space-y-3" id="recentSales">
-                            <div class="sales-item flex items-center justify-between p-3 rounded-lg transition-colors duration-200">
-                                <div>
-                                    <p class="font-medium text-gray-900">#001 - John Doe</p>
-                                    <p class="text-sm text-gray-500">2 min ago</p>
-                                </div>
-                                <span class="text-green-600 font-semibold">$45.67</span>
-                            </div>
-                            <div class="sales-item flex items-center justify-between p-3 rounded-lg transition-colors duration-200">
-                                <div>
-                                    <p class="font-medium text-gray-900">#002 - Jane Smith</p>
-                                    <p class="text-sm text-gray-500">5 min ago</p>
-                                </div>
-                                <span class="text-green-600 font-semibold">$23.45</span>
-                            </div>
-                            <div class="sales-item flex items-center justify-between p-3 rounded-lg transition-colors duration-200">
-                                <div>
-                                    <p class="font-medium text-gray-900">#003 - Mike Johnson</p>
-                                    <p class="text-sm text-gray-500">8 min ago</p>
-                                </div>
-                                <span class="text-green-600 font-semibold">$67.89</span>
-                            </div>
+                            <?php
+                                $sql = "SELECT transactionID, customerId, paymentTotal, created_at FROM transaction WHERE DATE(created_at) = CURDATE() ORDER BY created_at DESC LIMIT 5";
+                                $result = mysqli_query($conn, $sql);
+                                if(mysqli_num_rows($result) > 0) {
+                                    while($row = mysqli_fetch_assoc($result)) {
+                                        $transactionID = htmlspecialchars($row['transactionID']);
+                                        $customerId = htmlspecialchars($row['customerId']);
+                                        $paymentTotal = htmlspecialchars(number_format($row['paymentTotal'], 2));
+                                        $createdAt = date('H:i', strtotime($row['created_at']));
+                                        // Fetch customer name from registercustomers table
+                                        $customerQuery = "SELECT customerName FROM registercustomers WHERE customerId = '$customerId' LIMIT 1" ;
+                                        $customerNameResult = mysqli_query($conn, $customerQuery);
+                                        while($customerRow = mysqli_fetch_assoc($customerNameResult)) {
+                                            $customerName = htmlspecialchars($customerRow['customerName']);
+                                        };
+                                        echo '
+                                            <div class="sales-item flex items-center justify-between p-3 rounded-lg transition-colors duration-200 bg-green-100   hover:bg-green-200">
+                                                <div>
+                                                    <p class="font-medium text-gray-900">'.$transactionID.' - '.$customerName.'</p>
+                                                    <p class="text-sm text-gray-500">'.$createdAt.'</p>
+                                                </div>
+                                                <span class="text-green-600 font-semibold">$45.67</span>
+                                            </div>
+                                        ';
+                                    }
+                                }
+                            ?>
+                            
                         </div>
                     </div>
 
@@ -293,42 +320,34 @@
                             <span class="text-sm text-gray-500">Items that need restocking</span>
                         </div>
                         <div class="space-y-3" id="lowStockItems">
-                            <div class="low-stock-item p-4 rounded-lg">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="font-medium text-gray-900">Fresh Milk (1L)</p>
-                                        <p class="text-sm text-gray-600">Dairy</p>
-                                    </div>
-                                    <div class="flex items-center space-x-2">
-                                        <span class="text-red-600 font-semibold">5 units</span>
-                                        <div class="status-indicator w-2 h-2 bg-red-500 rounded-full"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="low-stock-item p-4 rounded-lg">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="font-medium text-gray-900">Whole Wheat Bread</p>
-                                        <p class="text-sm text-gray-600">Bakery</p>
-                                    </div>
-                                    <div class="flex items-center space-x-2">
-                                        <span class="text-red-600 font-semibold">8 units</span>
-                                        <div class="status-indicator w-2 h-2 bg-red-500 rounded-full"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="low-stock-item p-4 rounded-lg">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="font-medium text-gray-900">Organic Eggs (12pc)</p>
-                                        <p class="text-sm text-gray-600">Dairy</p>
-                                    </div>
-                                    <div class="flex items-center space-x-2">
-                                        <span class="text-red-600 font-semibold">3 units</span>
-                                        <div class="status-indicator w-2 h-2 bg-red-500 rounded-full"></div>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php
+                                // Fetch low stock items from the database
+                                $lowStockQuery = "SELECT name, category, stock_quantity FROM products WHERE stock_quantity < 50 ORDER BY stock_quantity ASC";
+                                $lowStockResult = mysqli_query($conn, $lowStockQuery);
+
+                                if (mysqli_num_rows($lowStockResult) > 0) {
+                                    while ($row = mysqli_fetch_assoc($lowStockResult)) {
+                                        echo '
+                                            <div class="low-stock-item p-4 rounded-lg">
+                                                <div class="flex items-center justify-between">
+                                                    <div>
+                                                        <p class="font-medium text-gray-900">'.$row['name'].'</p>
+                                                        <p class="text-sm text-gray-600">'.$row['category'].'</p>
+                                                    </div>
+                                                    <div class="flex items-center space-x-2">
+                                                        <span class="text-red-600 font-semibold">'.$row['stock_quantity'].'units</span>
+                                                        <div class="status-indicator w-2 h-2 bg-red-500 rounded-full"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ';
+                                    }
+                                } else {
+                                    echo '<p class="text-gray-500">No low stock items.</p>';
+                                }
+
+                            ?>
+                            
                         </div>
                     </div>
                 </div>
