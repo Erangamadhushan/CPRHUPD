@@ -82,7 +82,12 @@
                             <div>
                                 <p class="text-sm font-medium text-gray-600">Total Products</p>
                                 <p class="text-3xl font-bold text-gray-900 mt-1" id="totalProducts">
-                                    
+                                    <?php
+                                        // Fetch total products from the database
+                                        $result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM products");
+                                        $row = mysqli_fetch_assoc($result);
+                                        echo htmlspecialchars($row['total']);
+                                    ?>
                                 </p>
                                 <p class="text-sm text-green-600 mt-1" id="productsChange">+12% from last month</p>
                             </div>
@@ -99,7 +104,14 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-sm font-medium text-gray-600">Daily Sales</p>
-                                <p class="text-3xl font-bold text-gray-900 mt-1" id="dailySales">$2,847</p>
+                                <p class="text-3xl font-bold text-gray-900 mt-1" id="dailySales">
+                                    <?php
+                                        // Fetch daily sales from the database
+                                        $result = mysqli_query($conn, "SELECT SUM(paymentTotal) AS total FROM transaction WHERE DATE(created_at) = CURDATE()");
+                                        $row = mysqli_fetch_assoc($result);
+                                        echo '$' . htmlspecialchars(number_format($row['total'], 2));
+                                    ?>
+                                </p>
                                 <p class="text-sm text-green-600 mt-1" id="salesChange">+8% from last month</p>
                             </div>
                             <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
