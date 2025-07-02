@@ -194,13 +194,6 @@
                                         </div>
                                     </div>
                                 ';
-                            } else if( $_SESSION['role'] === 'manager' ) {
-                                echo '
-                                    <div class="metric-card rounded-xl p-6 mt-5 shadow-sm border card-hover transition-all duration-300">
-                                        <div class="flex items-center">
-                                        </div>
-                                    </div>
-                                ';
                             }else {
 
                             }
@@ -246,7 +239,7 @@
                                         </div>
                                     </a>
 
-                                    <button class="action-card rounded-xl p-6 text-left card-hover transition-all duration-300" onclick="showModal(\'manageInventoryModal\')">
+                                    <a class="action-card rounded-xl p-6 text-left card-hover transition-all duration-300" href="inventory.php">
                                         <div class="flex items-center space-x-3">
                                             <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
                                                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -255,9 +248,9 @@
                                             </div>
                                             <span class="font-medium text-gray-900">Manage Inventory</span>
                                         </div>
-                                    </button>
+                                    </a>
 
-                                    <button class="action-card rounded-xl p-6 text-left card-hover transition-all duration-300" onclick="showModal(\'viewReportsModal\')">
+                                    <a class="action-card rounded-xl p-6 text-left card-hover transition-all duration-300" href="viewReport.php">
                                         <div class="flex items-center space-x-3">
                                             <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
                                                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -266,7 +259,46 @@
                                             </div>
                                             <span class="font-medium text-gray-900">View Reports</span>
                                         </div>
-                                    </button>
+                                    </a>
+                                ';
+                            }
+                            elseif($_SESSION['role'] === 'manager') {
+                                echo '
+                                    <a class="action-card rounded-xl p-6 text-left card-hover transition-all duration-300" href="inventory.php">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
+                                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path>
+                                                </svg>
+                                            </div>
+                                            <span class="font-medium text-gray-900">Manage Inventory</span>
+                                        </div>
+                                    </a>
+
+                                    <a class="action-card rounded-xl p-6 text-left card-hover transition-all duration-300" href="viewReport.php">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
+                                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                                </svg>
+                                            </div>
+                                            <span class="font-medium text-gray-900">View Reports</span>
+                                        </div>
+                                    </a>
+                                ';
+                            }
+                            else {
+                                echo '
+                                    <a class="action-card rounded-xl p-6 text-left card-hover transition-all duration-300" href="Order.php">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
+                                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m0 0h8m-8 0a2 2 0 100 4 2 2 0 000-4zm8 0a2 2 0 100 4 2 2 0 000-4z"></path>
+                                                </svg>
+                                            </div>
+                                            <span class="font-medium text-gray-900">Process Sale</span>
+                                        </div>
+                                    </a>
                                 ';
                             }
                         ?>

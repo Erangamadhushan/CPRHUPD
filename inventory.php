@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FreshMart Management</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            'custom-green': '#22c55e',
+                            'custom-blue': '#3b82f6',
+                            'custom-red': '#ef4444',
+                            'custom-orange': '#f97316',
+                            'custom-yellow': '#eab308'
+                        }
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body class="bg-gray-50 min-h-screen">
+        <!-- Header -->
+        <header class="bg-white border-b border-gray-200 px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-custom-green rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                        </svg>
+                    </div>
+                    <h1 class="text-xl font-semibold text-gray-900">Inventory Management</h1>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button class="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-50">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <span>Generate Report</span>
+                    </button>
+                    <button class="flex items-center space-x-2 px-4 py-2 bg-custom-green text-white rounded-lg hover:bg-green-600">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        <span>Stock Adjustment</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="p-6">
+            <!-- Dashboard Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Total Products -->
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">Total Products</p>
+                            <p class="text-3xl font-bold text-gray-900">1,234</p>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-custom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Low Stock Items -->
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">Low Stock Items</p>
+                            <p class="text-3xl font-bold text-gray-900">23</p>
+                        </div>
+                        <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-custom-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Out of Stock -->
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">Out of Stock</p>
+                            <p class="text-3xl font-bold text-gray-900">5</p>
+                        </div>
+                        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-custom-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Overstocked -->
+                <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">Overstocked</p>
+                            <p class="text-3xl font-bold text-gray-900">12</p>
+                        </div>
+                        <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-custom-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inventory Overview -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-lg font-semibold text-gray-900">Inventory Overview</h2>
+                    <p class="text-sm text-gray-600 mt-1">Monitor stock levels and manage inventory across all products</p>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current Stock</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock Level</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reorder Point</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Restocked</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Supplier</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <!-- Fresh Milk Row -->
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Fresh Milk (1L)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Dairy</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <span class="font-medium">45</span>
+                                    <span class="text-gray-500">/ 100 max</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-20 bg-gray-200 rounded-full h-2">
+                                            <div class="bg-custom-green h-2 rounded-full" style="width: 45%"></div>
+                                        </div>
+                                        <span class="text-xs text-gray-500">Min: 20</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">25</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Normal</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-01-15</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Local Dairy Farm</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <button class="text-sm text-blue-600 hover:text-blue-900 font-medium">Adjust</button>
+                                </td>
+                            </tr>
+
+                            <!-- Whole Wheat Bread Row -->
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Whole Wheat Bread</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Bakery</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <span class="font-medium">8</span>
+                                    <span class="text-gray-500">/ 50 max</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-20 bg-gray-200 rounded-full h-2">
+                                            <div class="bg-custom-red h-2 rounded-full" style="width: 16%"></div>
+                                        </div>
+                                        <span class="text-xs text-gray-500">Min: 15</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">20</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Low Stock</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-01-14</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Fresh Bakery Co.</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <button class="text-sm text-blue-600 hover:text-blue-900 font-medium">Adjust</button>
+                                </td>
+                            </tr>
+
+                            <!-- Organic Bananas Row -->
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Organic Bananas (1kg)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Fruits</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <span class="font-medium">67</span>
+                                    <span class="text-gray-500">/ 80 max</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-20 bg-gray-200 rounded-full h-2">
+                                            <div class="bg-custom-green h-2 rounded-full" style="width: 84%"></div>
+                                        </div>
+                                        <span class="text-xs text-gray-500">Min: 30</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">35</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium bg-orange-100 text-orange-800 rounded-full">Overstocked</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-01-16</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Organic Farms Ltd</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <button class="text-sm text-blue-600 hover:text-blue-900 font-medium">Adjust</button>
+                                </td>
+                            </tr>
+
+                            <!-- Free Range Eggs Row -->
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Free Range Eggs</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Dairy</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <span class="font-medium">23</span>
+                                    <span class="text-gray-500">/ 60 max</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-20 bg-gray-200 rounded-full h-2">
+                                            <div class="bg-custom-green h-2 rounded-full" style="width: 38%"></div>
+                                        </div>
+                                        <span class="text-xs text-gray-500">Min: 20</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">30</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Normal</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-01-13</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Happy Hens Farm</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <button class="text-sm text-blue-600 hover:text-blue-900 font-medium">Adjust</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <script>
+            // Add some interactivity
+            document.addEventListener('DOMContentLoaded', function() {
+                // Add click handlers for buttons
+                const adjustButtons = document.querySelectorAll('button[class*="text-blue-600"]');
+                adjustButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        alert('Stock adjustment feature would open here');
+                    });
+                });
+
+                // Add hover effects for table rows
+                const tableRows = document.querySelectorAll('tbody tr');
+                tableRows.forEach(row => {
+                    row.addEventListener('mouseenter', function() {
+                        this.style.backgroundColor = '#f9fafb';
+                    });
+                    row.addEventListener('mouseleave', function() {
+                        this.style.backgroundColor = '';
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>
