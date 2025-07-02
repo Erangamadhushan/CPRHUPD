@@ -127,24 +127,8 @@ clearCart.addEventListener('click', () => {
     updateCart();
 });
 
-// Process payment
-processPayment.addEventListener('click', () => {
-    if (cart.length === 0) {
-        alert('Cart is empty!');
-        return;
-    }
-    
-    const customerName = document.getElementById('customerName').value;
-    const totalAmount = document.getElementById('total').textContent;
-    
-    // Here you would integrate with your PHP backend
-    alert(`Payment processed!\nCustomer: ${customerName || 'Walk-in'}\nTotal: ${totalAmount}`);
-    
-    // Clear cart after payment
-    cart = [];
-    updateCart();
-    document.getElementById('customerName').value = '';
-});
+
+// searchProducts();
 function searchProducts() {
     const query = searchInput.value.toLowerCase();
     query = query.trim();

@@ -52,6 +52,35 @@
             </div>
         </header>
 
+        <div class="flex items-center justify-end p-4 space-x-4">
+            <?php
+                // If check user is registered user
+                if(!isset($_SESSION['currentCustomer'])) {
+                    echo '
+                        <form action="./config/customerRegister.php" class="flex items-center justify-end p-4 space-x-4" method="post">
+                            <div>
+                                <h1 class="text-xl md:text-3xl text-green-400 font-bold">FreshMart</h1>
+                                <p class="text-md text-gray-500">Welcome to FreshMart! Please register or assign a customer to start shopping.</p>
+                            </div>
+                            <button type="submit" name="register_customer" class="flex items-center space-x-2 text-gray-600 border border-green-400 p-3  px-5 hover:text-green-600">
+                                <span class="text-md group gap-2 flex items-center">
+                                    <i class="fas fa-user"></i>Register
+                                </span>
+                            </button>
+                            <button type="submit" name="Assign_customer" class="flex items-center space-x-2 text-gray-600 border border-green-400 p-3 px-5 hover:text-green-600">
+                                <span class="text-md group">
+                                    <i class="fas fa-register"></i>Assign Customer
+                                </span>
+                            </button>
+                        </form>
+                    ';
+                }
+                else {
+
+                }
+            ?>
+        </div>
+
         <div class="flex h-screen pt-16">
             <div class="flex-1 p-6 overflow-y-auto">
                 <div class="mb-6">
@@ -109,7 +138,7 @@
             </div>
 
             <!-- Cart Sidebar -->
-            <div class="w-96 bg-white shadow-lg border-l">
+            <div class="w-96 bg-white shadow-lg border-l min-h-[100vh]">
                 <div class="p-6 border-b">
                     <div class="flex items-center justify-between">
                         <h3 class="text-lg font-semibold text-gray-800 flex items-center">
@@ -145,13 +174,13 @@
                             </div>
                         </div>
 
-                        <div class="space-y-3">
+                        <div class="space-y-3 min-h-[300px]">
                             <input 
                                 type="text" 
                                 id="customerName"
                                 name="customerName"
                                 placeholder="Enter customer name" 
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm" disabled="true"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm" disabled="true" required
                             >
                             <select name="paymentMethod" id="paymentMethod" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm " disabled="true" required>
                                 <option value="" disabled selected>Select Payment Method</option>
