@@ -58,7 +58,7 @@
                 'tax' => $paymentTax,
                 'total' => $paymentTotal
             ];
-            header("Location: ../Order.php");
+            header("Location: ./OrderSuccessful.php");
             exit();
         }
         
