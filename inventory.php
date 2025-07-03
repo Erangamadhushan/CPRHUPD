@@ -1,3 +1,11 @@
+<?php
+    // session start if already not start a session
+    if(session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    // insert database connection
+    include 'config/config.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -32,10 +40,14 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                         </svg>
                     </div>
-                    <h1 class="text-xl font-semibold text-gray-900">Inventory Management</h1>
+                    <h1 class="text-xl font-semibold text-gray-900">Stock Management</h1>
                 </div>
                 <div class="flex items-center space-x-3">
-                    <button class="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-50">
+                    <span class="border border-green-500 group rounded px-3 py-2 hover:bg-green-500 flex items-center space-x-1">
+                        <i class="fas fa-home mr-1"></i>
+                        <a href="dashboard.php" class="group-hover:text-white">Dashboard</a>
+                    </span>
+                    <button class="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-50" onclick="javascript:window.print();">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
@@ -60,7 +72,14 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm font-medium text-gray-600">Total Products</p>
-                            <p class="text-3xl font-bold text-gray-900">1,234</p>
+                            <p class="text-3xl font-bold text-gray-900">
+                                <?php
+                                    // Fetch total products from the database
+                                    $result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM products");
+                                    $row = mysqli_fetch_assoc($result);
+                                    echo htmlspecialchars($row['total']);
+                                ?>
+                            </p>
                         </div>
                         <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                             <svg class="w-6 h-6 text-custom-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,7 +94,14 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm font-medium text-gray-600">Low Stock Items</p>
-                            <p class="text-3xl font-bold text-gray-900">23</p>
+                            <p class="text-3xl font-bold text-gray-900">
+                                <?php
+                                    // Fetch low stock items from the database
+                                    $result = mysqli_query($conn, "SELECT COUNT(stock_quantity) AS total FROM products WHERE stock_quantity < 50");
+                                    $row = mysqli_fetch_assoc($result);
+                                    echo htmlspecialchars($row['total']);
+                                ?>
+                            </p>
                         </div>
                         <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
                             <svg class="w-6 h-6 text-custom-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -90,7 +116,14 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm font-medium text-gray-600">Out of Stock</p>
-                            <p class="text-3xl font-bold text-gray-900">5</p>
+                            <p class="text-3xl font-bold text-gray-900">
+                                <?php
+                                    // Fetch out stock items from the database
+                                    $result = mysqli_query($conn, "SELECT COUNT(stock_quantity) AS total FROM products WHERE stock_quantity = 0");
+                                    $row = mysqli_fetch_assoc($result);
+                                    echo htmlspecialchars($row['total']);
+                                ?>
+                            </p>
                         </div>
                         <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
                             <svg class="w-6 h-6 text-custom-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -105,7 +138,14 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm font-medium text-gray-600">Overstocked</p>
-                            <p class="text-3xl font-bold text-gray-900">12</p>
+                            <p class="text-3xl font-bold text-gray-900">
+                                <?php
+                                    // Fetch over stock items from the database
+                                    $result = mysqli_query($conn, "SELECT COUNT(stock_quantity) AS total FROM products WHERE stock_quantity > 100");
+                                    $row = mysqli_fetch_assoc($result);
+                                    echo htmlspecialchars($row['total']);
+                                ?>
+                            </p>
                         </div>
                         <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
                             <svg class="w-6 h-6 text-custom-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -130,122 +170,78 @@
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current Stock</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock Level</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reorder Point</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current Price</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock Status</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Restocked</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Supplier</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            <!-- Fresh Milk Row -->
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Fresh Milk (1L)</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Dairy</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    <span class="font-medium">45</span>
-                                    <span class="text-gray-500">/ 100 max</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center space-x-2">
-                                        <div class="w-20 bg-gray-200 rounded-full h-2">
-                                            <div class="bg-custom-green h-2 rounded-full" style="width: 45%"></div>
-                                        </div>
-                                        <span class="text-xs text-gray-500">Min: 20</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">25</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Normal</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-01-15</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Local Dairy Farm</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <button class="text-sm text-blue-600 hover:text-blue-900 font-medium">Adjust</button>
-                                </td>
-                            </tr>
+                            <!-- Fetch data from the products table -->
 
-                            <!-- Whole Wheat Bread Row -->
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Whole Wheat Bread</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Bakery</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    <span class="font-medium">8</span>
-                                    <span class="text-gray-500">/ 50 max</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center space-x-2">
-                                        <div class="w-20 bg-gray-200 rounded-full h-2">
-                                            <div class="bg-custom-red h-2 rounded-full" style="width: 16%"></div>
-                                        </div>
-                                        <span class="text-xs text-gray-500">Min: 15</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">20</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Low Stock</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-01-14</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Fresh Bakery Co.</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <button class="text-sm text-blue-600 hover:text-blue-900 font-medium">Adjust</button>
-                                </td>
-                            </tr>
+                            <?php
+                                $sql = "SELECT * FROM products";
+                                $result = mysqli_query($conn, $sql);
+                                if(mysqli_num_rows($result) > 0) {
+                                    while($row = mysqli_fetch_assoc($result)) {
+                                        $productName = htmlspecialchars($row['name']);
+                                        $category = htmlspecialchars($row['category']);
+                                        $currentStock = htmlspecialchars($row['stock_quantity']);
+                                        $currentPrice = htmlspecialchars($row['price']);
+                                        $lastRestocked = date("Y-m-d", strtotime($row['updated_at']));
+                                        $supplier = htmlspecialchars($row['manufactureName']);
 
-                            <!-- Organic Bananas Row -->
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Organic Bananas (1kg)</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Fruits</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    <span class="font-medium">67</span>
-                                    <span class="text-gray-500">/ 80 max</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center space-x-2">
-                                        <div class="w-20 bg-gray-200 rounded-full h-2">
-                                            <div class="bg-custom-green h-2 rounded-full" style="width: 84%"></div>
-                                        </div>
-                                        <span class="text-xs text-gray-500">Min: 30</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">35</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 py-1 text-xs font-medium bg-orange-100 text-orange-800 rounded-full">Overstocked</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-01-16</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Organic Farms Ltd</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <button class="text-sm text-blue-600 hover:text-blue-900 font-medium">Adjust</button>
-                                </td>
-                            </tr>
+                                        // Determine stock status
+                                        if ($currentStock < 5) {
+                                            $statusClass = 'bg-red-100 text-red-800';
+                                            $statusText = 'Out of Stock';
+                                        } elseif ($currentStock < 50) {
+                                            $statusClass = 'bg-yellow-100 text-yellow-800';
+                                            $statusText = 'Low Stock';
+                                        }
+                                        elseif ($currentStock <= 100) {
+                                            $statusClass = 'bg-green-100 text-green-800';
+                                            $statusText = 'Normal Stock';
 
-                            <!-- Free Range Eggs Row -->
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Free Range Eggs</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Dairy</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    <span class="font-medium">23</span>
-                                    <span class="text-gray-500">/ 60 max</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center space-x-2">
-                                        <div class="w-20 bg-gray-200 rounded-full h-2">
-                                            <div class="bg-custom-green h-2 rounded-full" style="width: 38%"></div>
-                                        </div>
-                                        <span class="text-xs text-gray-500">Min: 20</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">30</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Normal</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2024-01-13</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Happy Hens Farm</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <button class="text-sm text-blue-600 hover:text-blue-900 font-medium">Adjust</button>
-                                </td>
-                            </tr>
+                                        }
+                                         elseif ($currentStock > 100) {
+                                            $statusClass = 'bg-orange-100 text-orange-800 font-bold text-md';
+                                            $statusText = 'Overstocked';
+                                        } else {
+                                            $statusClass = 'bg-gray-200 text-gray-600';
+                                            $statusText = 'Unknown';
+                                        }
+
+                                        echo '
+                                            <tr class="hover:bg-gray-50">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">'.$productName.'</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">'.$category.'</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                    <span class="font-medium">'.$currentStock.'</span>
+                                                    <span class="text-gray-500">/ 100 max</span>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">'.$currentPrice.'</td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <span class="px-2 py-1 text-xs font-medium rounded-full'.$statusClass.'">'.$statusText.'</span>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">'.$lastRestocked.'</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">'.$supplier.'</td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <form action="./transactions/adjust_stock.php" method="POST" class="inline-flex items-center space-x-2">
+                                                        <input type="hidden" name="product_id" value="'.$row['id'].'"/>
+                                                        <input type="hidden" name="product_name" value="'.$productName.'"/>
+                                                        <input type="hidden" name="current_stock" value="'.$currentStock.'"/>
+                                                        <input type="hidden" name="current_price" value="'.$currentPrice.'"/>
+                                                        <button type="sumit" class="text-sm text-blue-600 hover:text-blue-900 font-medium adjust_button" name="adjustStock">Adjust</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        ';
+                                    }
+                                }
+                            ?>
+                            
                         </tbody>
                     </table>
                 </div>
@@ -255,14 +251,6 @@
         <script>
             // Add some interactivity
             document.addEventListener('DOMContentLoaded', function() {
-                // Add click handlers for buttons
-                const adjustButtons = document.querySelectorAll('button[class*="text-blue-600"]');
-                adjustButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        alert('Stock adjustment feature would open here');
-                    });
-                });
-
                 // Add hover effects for table rows
                 const tableRows = document.querySelectorAll('tbody tr');
                 tableRows.forEach(row => {

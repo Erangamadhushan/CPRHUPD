@@ -1,0 +1,151 @@
+<!-- Charts Section -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Top Selling Products -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-900">Top Selling Products</h3>
+            <p class="text-sm text-gray-600 mt-1">Best performing products for the selected period</p>
+        </div>
+        
+        <div class="space-y-6">
+            <!-- Fresh Milk -->
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-900">Fresh Milk (1L)</p>
+                    <p class="text-xs text-gray-500">Dairy</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-sm font-semibold text-gray-900">45 sold</p>
+                    <p class="text-xs text-custom-green">$179.55</p>
+                </div>
+            </div>
+
+            <!-- Whole Wheat Bread -->
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-900">Whole Wheat Bread</p>
+                    <p class="text-xs text-gray-500">Bakery</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-sm font-semibold text-gray-900">38 sold</p>
+                    <p class="text-xs text-custom-green">$94.62</p>
+                </div>
+            </div>
+
+            <!-- Organic Bananas -->
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-900">Organic Bananas (1kg)</p>
+                    <p class="text-xs text-gray-500">Fruits</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-sm font-semibold text-gray-900">32 sold</p>
+                    <p class="text-xs text-custom-green">$159.68</p>
+                </div>
+            </div>
+
+            <!-- Free Range Eggs -->
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-900">Free Range Eggs (12pc)</p>
+                    <p class="text-xs text-gray-500">Dairy</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-sm font-semibold text-gray-900">28 sold</p>
+                    <p class="text-xs text-custom-green">$167.72</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sales by Category -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold text-gray-900">Sales by Category</h3>
+            <p class="text-sm text-gray-600 mt-1">Revenue breakdown by product category</p>
+        </div>
+        
+        <div class="space-y-6">
+            <!-- Dairy -->
+            <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-medium text-gray-900">Dairy</span>
+                    <div class="text-right">
+                        <span class="text-lg font-bold text-custom-green">$165.00</span>
+                        <span class="text-xs text-gray-500 ml-2">25.3%</span>
+                    </div>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="bg-custom-green h-2 rounded-full" style="width: 40%"></div>
+                </div>
+            </div>
+
+            <!-- Fruits -->
+            <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-medium text-gray-900">Fruits</span>
+                    <div class="text-right">
+                        <span class="text-lg font-bold text-custom-green">$38</span>
+                        <span class="text-xs text-gray-500 ml-2">22.5%</span>
+                    </div>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="bg-custom-green h-2 rounded-full" style="width: 67%"></div>
+                </div>
+            </div>
+
+            <!-- Vegetables -->
+            <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-medium text-gray-900">Vegetables</span>
+                    <div class="text-right">
+                        <span class="text-lg font-bold text-custom-green">$12</span>
+                        <span class="text-xs text-gray-500 ml-2">16.8%</span>
+                    </div>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="bg-custom-green h-2 rounded-full" style="width: 50%"></div>
+                </div>
+            </div>
+
+            <!-- Bakery -->
+            <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-medium text-gray-900">Bakery</span>
+                    <div class="text-right">
+                        <span class="text-lg font-bold text-custom-green">$25</span>
+                        <span class="text-xs text-gray-500 ml-2">14.3%</span>
+                    </div>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="bg-custom-green h-2 rounded-full" style="width: 42%"></div>
+                </div>
+            </div>
+
+            <!-- Beverages -->
+            <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-medium text-gray-900">Beverages</span>
+                    <div class="text-right">
+                        <span class="text-lg font-bold text-custom-green">$23</span>
+                        <span class="text-xs text-gray-500 ml-2">10.7%</span>
+                    </div>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="bg-custom-green h-2 rounded-full" style="width: 32%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sales Trend Chart -->
+<div class="mt-6 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+    <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-900">Sales Trend</h3>
+        <p class="text-sm text-gray-600 mt-1">Daily sales performance over the last 30 days</p>
+    </div>
+    <div class="h-80">
+        <canvas id="salesChart"></canvas>
+    </div>
+</div>
